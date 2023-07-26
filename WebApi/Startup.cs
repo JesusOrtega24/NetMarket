@@ -12,18 +12,19 @@ namespace WebApi;
 
 public class Startup
 {
-    public IConfiguration Configuration { get; }
-
     public Startup( IConfiguration configuration)
     {
         Configuration = configuration;
     }
+
+    public IConfiguration Configuration { get; }
 
     public void ConfigureServices (IServiceCollection services)
     {
         services.AddDbContext<MarketDBContext>(opt =>{
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
         services.AddControllers();
         services.AddTransient<IProductoRepository, ProductoRepository>();
     }

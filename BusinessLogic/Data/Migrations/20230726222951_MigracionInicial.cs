@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace BusinessLogic.Data.Migrations
 {
     public partial class MigracionInicial : Migration

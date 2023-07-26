@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Data.Configuration
 {
-    public class Configuration : IEntityTypeConfiguration<Producto>
+    public class ProductoConfiguration : IEntityTypeConfiguration<Producto>
     {
         public void Configure(EntityTypeBuilder<Producto> builder)
         {

@@ -12,10 +12,7 @@ namespace BusinessLogic.Data
     public class MarketDBContext : DbContext
     {
 
-        public MarketDBContext (DbContextOptions<MarketDBContext> options) : base (options)
-        {
-
-        }
+        public MarketDBContext (DbContextOptions<MarketDBContext> options) : base (options) { }
 
         public DbSet<Producto> Producto { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
