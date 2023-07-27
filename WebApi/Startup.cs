@@ -8,6 +8,7 @@ using BusinessLogic.Data;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Logic;
 using WebApi.DTOs;
+using WebApi.Middleware;
 
 namespace WebApi;
 
@@ -36,10 +37,14 @@ public class Startup
 
     public void Configure(IApplicationBuilder App, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment())
-        {
-            App.UseDeveloperExceptionPage();
-        }
+        //if (env.IsDevelopment())
+        //{
+        //    App.UseDeveloperExceptionPage();
+        //}
+
+        App.UseMiddleware<ExceptionMiddleware>();
+
+        App.UseStatusCodePagesWithReExecute("/errors", "?code={0}");
 
         App.UseRouting();
         App.UseAuthentication();
