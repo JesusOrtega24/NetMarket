@@ -1,9 +1,12 @@
-﻿using Core.Entities;
+﻿using AutoMapper;
+using Core.Entities;
 using Core.Interfaces;
+using Core.Specifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApi.DTOs;
 
 namespace WebApi.Controllers
 {
@@ -12,25 +15,32 @@ namespace WebApi.Controllers
     public class ProductoController : ControllerBase
     {
 
-        private readonly IProductoRepository _productoRepository;
+        private readonly IGenericRepository<Producto> Repository;
+        private readonly IMapper Mapper;
 
-        public ProductoController(IProductoRepository productoRepository)
+        public ProductoController(IGenericRepository<Producto> productoRepository, IMapper mapper)
         {
-            _productoRepository = productoRepository;
+            Repository = productoRepository;
+            Mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Producto>>> GetProducto()
+        public async Task<ActionResult<List<Producto>>> ListProductos()
         {
-            var productos = await _productoRepository.GetProductosAsync();
+            var spec = new ProductoCategoriasMarcasSpecification();
+            var productos = await Repository.ListEntity(spec);
 
-            return Ok(productos);
+            return Ok(Mapper.Map<IReadOnlyList<Producto>, IReadOnlyList<ProductoDTO>>(productos));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Producto>> GetProducto (int id)
+        public async Task<ActionResult<ProductoDTO>> GetProducto (int id)
         {
-            return await _productoRepository.GetProductoByIdAsync(id);
+
+            var spec = new ProductoCategoriasMarcasSpecification(id);
+            var producto = await Repository.GetEntity(spec);
+
+            return Mapper.Map<Producto, ProductoDTO>(producto);
         }
 
     }

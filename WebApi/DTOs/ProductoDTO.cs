@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.Entities
+﻿namespace WebApi.DTOs
 {
-    public class Producto : ClaseBase
-    {
-
+    public class ProductoDTO
+    { 
+  
+        public string Id { get; set; }
+        
         public string Nombre { get; set; }
 
         public string Descripcion { get; set; }
@@ -18,11 +13,11 @@ namespace Core.Entities
 
         public int MarcaId { get; set;}
         
-        public Marca Marca { get; set;}
+        public string MarcaNombre { get; set;}
 
         public int CategoriaId { get; set; }
         
-        public Categoria Categoria { get; set; }
+        public string CategoriaNombre { get; set; }
 
         public decimal Precio { get; set;}
 

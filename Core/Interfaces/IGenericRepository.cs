@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,13 @@ namespace Core.Interfaces
     public interface IGenericRepository<T> where T : ClaseBase
     {
 
-        Task<T> GetByIdAsync(int Id);
+        Task<T> Get(int Id);
 
-        Task<IReadOnlyList<T>> GetAllAsync();
+        Task<IReadOnlyList<T>> List();
+
+        Task<T> GetEntity(ISpecification<T> spec);
+
+        Task<IReadOnlyList<T>> ListEntity(ISpecification<T> spec);
 
     }
 }

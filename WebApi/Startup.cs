@@ -7,6 +7,7 @@ using Core.Interfaces;
 using BusinessLogic.Data;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Logic;
+using WebApi.DTOs;
 
 namespace WebApi;
 
@@ -21,6 +22,10 @@ public class Startup
 
     public void ConfigureServices (IServiceCollection services)
     {
+        services.AddAutoMapper(typeof(MappingProfiles));
+
+        services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+
         services.AddDbContext<MarketDBContext>(opt =>{
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
