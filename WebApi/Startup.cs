@@ -31,8 +31,16 @@ public class Startup
             opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-        services.AddControllers();
         services.AddTransient<IProductoRepository, ProductoRepository>();
+        services.AddControllers();
+
+        services.AddCors(opt =>
+        {
+            opt.AddPolicy("CorsRule", rule =>
+            {
+                rule.AllowAnyHeader().AllowAnyMethod().WithOrigins("*");
+            });
+        });
     }
 
     public void Configure(IApplicationBuilder App, IWebHostEnvironment env)
@@ -47,6 +55,7 @@ public class Startup
         App.UseStatusCodePagesWithReExecute("/errors", "?code={0}");
 
         App.UseRouting();
+        App.UseCors("CorsRule");
         App.UseAuthentication();
         App.UseAuthorization();
         App.UseEndpoints(endpoints =>

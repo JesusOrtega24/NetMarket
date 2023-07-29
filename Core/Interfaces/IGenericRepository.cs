@@ -19,5 +19,7 @@ namespace Core.Interfaces
 
         Task<IReadOnlyList<T>> ListEntity(ISpecification<T> spec);
 
+        Task<int> CountAsync(ISpecification<T> spec);
+
     }
 }
